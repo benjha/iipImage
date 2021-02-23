@@ -104,6 +104,7 @@ RUN cp /src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 #    chmod -R g+rwX /etc/apache2
 # 
 #USER 1001
+RUN sed -i 's/create 640 root adm/create 644 root adm/g' /etc/logrotate.d/apache2
 # <--- Slate Deployment
 
 # CMD service apache2 start && while true; do sleep 1000; done
