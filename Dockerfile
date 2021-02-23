@@ -66,6 +66,7 @@ RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 
 #COPY apache2-iipsrv-fcgid.conf /root/src/iip-openslide-docker/apache2-iipsrv-fcgid.conf
 
+# Slate Deployment -->
 #RUN chgrp -R 0 /root && \
 #    chmod -R g+rwX /root
 #RUN chgrp -R 0 /var && \
@@ -74,8 +75,9 @@ RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 #    chmod -R g+rwX /run
 #RUN chgrp -R 0 /etc/apache2 && \
 #    chmod -R g+rwX /etc/apache2
-
+# 
 #USER 1001
+# <---
 
 # CMD service apache2 start && while true; do sleep 1000; done
 CMD apachectl -D FOREGROUND
