@@ -11,9 +11,14 @@ RUN apt-get -q -y install  openssh-server git autoconf automake make libtool pkg
 RUN a2enmod rewrite
 RUN a2enmod fcgid
 
-RUN mkdir /root/src
-COPY . /root/src
-WORKDIR /root/src
+# Slate deployment -->
+#RUN mkdir /root/src
+#COPY . /root/src
+#WORKDIR /root/src
+RUN mkdir /src
+COPY . /src
+WORKDIR /src
+# <-- Slate deployment
 
 ## replace apache's default fcgi config with ours.
 RUN rm /etc/apache2/mods-enabled/fcgid.conf
@@ -28,23 +33,37 @@ RUN ln -s /etc/apache2/mods-available/proxy.conf /etc/apache2/mods-enabled/proxy
 COPY apache2.conf /etc/apache2/apache2.conf
 COPY ports.conf /etc/apache2/ports.conf
 
-WORKDIR /root/src
+# Slate deployment -->
+#WORKDIR /root/src
+WORKDIR /src
+# <-- Slate deployment
 
 ### openjpeg version in ubuntu 14.04 is 1.3, too old and does not have openslide required chroma subsampled images support.  download 2.1.0 from source and build
 RUN git clone https://github.com/uclouvain/openjpeg.git --branch=v2.3.0
-RUN mkdir /root/src/openjpeg/build
-WORKDIR /root/src/openjpeg/build
+# Slate deployment -->
+#RUN mkdir /root/src/openjpeg/build
+#WORKDIR /root/src/openjpeg/build
+RUN mkdir /src/openjpeg/build
+WORKDIR /src/openjpeg/build
+# <-- Slate deployment
 RUN cmake -DBUILD_JPIP=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_CODEC=ON -DBUILD_PKGCONFIG_FILES=ON ../
 RUN make
 RUN make install
 
 ### Openslide
-WORKDIR /root/src
+# Slate deployment -->
+#WORKDIR /root/src
+WORKDIR /src
+# <-- Slate deployment
 ## get my fork from openslide source cdoe
 RUN git clone https://github.com/openslide/openslide.git
 
 ## build openslide
-WORKDIR /root/src/openslide
+# Slate deployment -->
+#WORKDIR /root/src/openslide
+WORKDIR /src/openslide
+# <-- Slate deployment
+
 RUN git checkout tags/v3.4.1
 RUN autoreconf -i
 #RUN ./configure --enable-static --enable-shared=no
@@ -55,14 +74,22 @@ RUN make
 RUN make install
 
 ###  iipsrv
-WORKDIR /root/src/iipsrv
+# Slate deployment -->
+#WORKDIR /root/src/iipsrv
+WORKDIR /src/iipsrv
+# <-- Slate deployment
+
 RUN ./autogen.sh
 #RUN ./configure --enable-static --enable-shared=no
 RUN ./configure
 RUN make
 ## create a directory for iipsrv's fcgi binary
 RUN mkdir -p /var/www/localhost/fcgi-bin/
-RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
+# Slate deployment -->
+#RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
+RUN cp /src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
+# <-- Slate deployment
+
 
 #COPY apache2-iipsrv-fcgid.conf /root/src/iip-openslide-docker/apache2-iipsrv-fcgid.conf
 
@@ -77,7 +104,7 @@ RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 #    chmod -R g+rwX /etc/apache2
 # 
 #USER 1001
-# <---
+# <--- Slate Deployment
 
 # CMD service apache2 start && while true; do sleep 1000; done
 CMD apachectl -D FOREGROUND
