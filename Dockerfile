@@ -92,7 +92,7 @@ RUN make
 #RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/mod_fcgid
 RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
-RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
+RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin/
 # <-- Slate deployment
 
 
@@ -117,4 +117,4 @@ RUN sed -i 's/create 640 root adm/create 644 root adm/g' /etc/logrotate.d/apache
 # <--- Slate Deployment
 
 # CMD service apache2 start && while true; do sleep 1000; done
-# CMD apachectl -D FOREGROUND
+CMD apachectl -D FOREGROUND
