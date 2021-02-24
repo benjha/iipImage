@@ -90,9 +90,11 @@ RUN make
 # Slate deployment -->
 #RUN mkdir -p /var/www/localhost/fcgi-bin/
 #RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
-RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/mod_fcgid
-RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
-RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin/
+#RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/mod_fcgid
+#RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
+#RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin/
+WORKDIR /src
+RUN chmod +x install_iipsrv.sh
 # <-- Slate deployment
 
 
@@ -114,9 +116,10 @@ RUN sed -i 's#/var/lock#/gpfs/alpine/proj-shared/gen150/caMicroscope#g' /etc/apa
 RUN sed -i 's#/var/log#/gpfs/alpine/proj-shared/gen150/caMicroscope#g' /etc/apache2/envvars 
 RUN sed -i 's#/var/log#/gpfs/alpine/proj-shared/gen150/caMicroscope#g' /etc/logrotate.d/apache2
 RUN sed -i 's/create 640 root adm/create 644 root adm/g' /etc/logrotate.d/apache2
-# <--- Slate Deployment
 
-USER root
+ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64:/lib:/lib64
+
+# <--- Slate Deployment
 
 # CMD service apache2 start && while true; do sleep 1000; done
 CMD apachectl -D FOREGROUND
