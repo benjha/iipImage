@@ -1,5 +1,10 @@
 FROM ubuntu:bionic
 
+# Slate deployment -->
+ARG APACHE_LOG_DIR=/gpfs/alpine/proj-shared/gen150/caMicroscope/apache2
+RUN echo $APACHE_LOG_DIR
+# <-- Slate deployment
+
 ### update
 RUN apt-get -q update
 RUN apt-get -q -y upgrade
@@ -9,10 +14,6 @@ RUN apt-get -q update
 
 RUN apt-get -q -y install  openssh-server git autoconf automake make libtool pkg-config cmake apache2 libapache2-mod-fcgid libfcgi0ldbl zlib1g-dev libpng-dev libjpeg-dev libtiff5-dev libgdk-pixbuf2.0-dev libxml2-dev libsqlite3-dev libcairo2-dev libglib2.0-dev g++ libmemcached-dev libjpeg-turbo8-dev
 
-# Slate deployment -->
-ARG APACHE_LOG_DIR /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2
-RUN echo $APACHE_LOG_DIR
-# <-- Slate deployment
 
 RUN a2enmod rewrite
 RUN a2enmod fcgid
