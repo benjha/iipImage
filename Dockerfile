@@ -107,6 +107,7 @@ RUN chgrp -R 0 /etc/apache2 && \
     chmod -R g+rwX /etc/apache2
 # 
 # USER 1001
+RUN sed -i 's#/var/log/apache2#/gpfs/alpine/proj-shared/gen150/caMicroscope/apache2#g' /etc/apache2/envvars 
 RUN sed -i 's#/var/log/apache2#/gpfs/alpine/proj-shared/gen150/caMicroscope/apache2#g' /etc/logrotate.d/apache2
 RUN sed -i 's/create 640 root adm/create 644 root adm/g' /etc/logrotate.d/apache2
 # <--- Slate Deployment
