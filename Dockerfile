@@ -116,5 +116,7 @@ RUN sed -i 's#/var/log#/gpfs/alpine/proj-shared/gen150/caMicroscope#g' /etc/logr
 RUN sed -i 's/create 640 root adm/create 644 root adm/g' /etc/logrotate.d/apache2
 # <--- Slate Deployment
 
+USER root
+
 # CMD service apache2 start && while true; do sleep 1000; done
 CMD apachectl -D FOREGROUND
