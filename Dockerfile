@@ -85,26 +85,26 @@ RUN ./autogen.sh
 #RUN ./configure --enable-static --enable-shared=no
 RUN ./configure
 RUN make
-RUN make install
 ## create a directory for iipsrv's fcgi binary
-RUN mkdir -p /var/www/localhost/fcgi-bin/
 # Slate deployment -->
+#RUN mkdir -p /var/www/localhost/fcgi-bin/
 #RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
-RUN cp /src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
+RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
+RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
 # <-- Slate deployment
 
 
 #COPY apache2-iipsrv-fcgid.conf /root/src/iip-openslide-docker/apache2-iipsrv-fcgid.conf
 
 # Slate Deployment -->
-RUN chgrp -R 0 /src && \
-    chmod -R g+rwX /src
-RUN chgrp -R 0 /var && \
-    chmod -R g+rwX /var
+#RUN chgrp -R 0 /src && \
+#    chmod -R g+rwX /src
+#RUN chgrp -R 0 /var && \
+#    chmod -R g+rwX /var
 #RUN chgrp -R 0 /run && \
 #    chmod -R g+rwX /run
-RUN chgrp -R 0 /etc/apache2 && \
-    chmod -R g+rwX /etc/apache2
+#RUN chgrp -R 0 /etc/apache2 && \
+#    chmod -R g+rwX /etc/apache2
 # 
 # USER 1001
 RUN sed -i 's#/var/run#/gpfs/alpine/proj-shared/gen150/caMicroscope#g' /etc/apache2/envvars
