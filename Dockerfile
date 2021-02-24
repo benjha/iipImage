@@ -115,4 +115,4 @@ RUN chgrp -R 0 /etc/apache2 && \
 # <--- Slate Deployment
 
 # CMD service apache2 start && while true; do sleep 1000; done
-CMD apachectl -D FOREGROUND
+# CMD apachectl -D FOREGROUND
