@@ -104,7 +104,7 @@ RUN cp /src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 #RUN chgrp -R 0 /etc/apache2 && \
 #    chmod -R g+rwX /etc/apache2
 # 
-#USER 1001
+USER 1001
 RUN sed -i 's/create 640 root adm/create 644 root adm/g' /etc/logrotate.d/apache2
 # <--- Slate Deployment
 
