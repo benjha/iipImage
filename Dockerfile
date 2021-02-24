@@ -90,7 +90,7 @@ RUN make
 # Slate deployment -->
 #RUN mkdir -p /var/www/localhost/fcgi-bin/
 #RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
-RUN mkdri -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/mod_fcgid
+RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/mod_fcgid
 RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
 RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
 # <-- Slate deployment
