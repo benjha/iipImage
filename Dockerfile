@@ -85,6 +85,7 @@ RUN ./autogen.sh
 #RUN ./configure --enable-static --enable-shared=no
 RUN ./configure
 RUN make
+RUN make install
 ## create a directory for iipsrv's fcgi binary
 RUN mkdir -p /var/www/localhost/fcgi-bin/
 # Slate deployment -->
