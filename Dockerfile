@@ -122,4 +122,4 @@ ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64:/lib:/lib64
 # <--- Slate Deployment
 
 # CMD service apache2 start && while true; do sleep 1000; done
-CMD apachectl -D FOREGROUND
+# CMD apachectl -D FOREGROUND
