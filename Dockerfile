@@ -94,7 +94,7 @@ RUN make
 #RUN mkdir -p /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin
 #RUN cp /src/iipsrv/src/iipsrv.fcgi /gpfs/alpine/proj-shared/gen150/caMicroscope/apache2/fcgi-bin/
 WORKDIR /src
-RUN chmod +x install_iipsrv.sh
+RUN chmod +x run_iipsrv.sh
 # <-- Slate deployment
 
 
