@@ -83,4 +83,4 @@ RUN chown -R 1001 /etc/apache2 && \
 USER 1001
 
 # CMD service apache2 start && while true; do sleep 1000; done
-CMD apachectl -D FOREGROUND
+# CMD apachectl -D FOREGROUND
