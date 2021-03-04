@@ -13,9 +13,9 @@ RUN apt-get -q -y install  openssh-server git autoconf automake make libtool pkg
 RUN a2enmod rewrite
 RUN a2enmod fcgid
 
-RUN mkdir /root/src
-COPY . /root/src
-WORKDIR /root/src
+RUN mkdir /src
+COPY . /src
+WORKDIR /src
 
 ## replace apache's default fcgi config with ours.
 RUN rm /etc/apache2/mods-enabled/fcgid.conf
@@ -30,23 +30,23 @@ RUN ln -s /etc/apache2/mods-available/proxy.conf /etc/apache2/mods-enabled/proxy
 COPY apache2.conf /etc/apache2/apache2.conf
 COPY ports.conf /etc/apache2/ports.conf
 
-WORKDIR /root/src
+WORKDIR /src
 
 ### openjpeg version in ubuntu 14.04 is 1.3, too old and does not have openslide required chroma subsampled images support.  download 2.1.0 from source and build
 #RUN git clone https://github.com/uclouvain/openjpeg.git --branch=v2.3.0
-#RUN mkdir /root/src/openjpeg/build
-#WORKDIR /root/src/openjpeg/build
+#RUN mkdir /src/openjpeg/build
+#WORKDIR /src/openjpeg/build
 #RUN cmake -DBUILD_JPIP=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_CODEC=ON -DBUILD_PKGCONFIG_FILES=ON ../
 #RUN make
 #RUN make install
 
 ### Openslide
-#WORKDIR /root/src
+#WORKDIR /src
 ## get my fork from openslide source cdoe
 #RUN git clone https://github.com/openslide/openslide.git
 
 ## build openslide
-#WORKDIR /root/src/openslide
+#WORKDIR /src/openslide
 #RUN git checkout tags/v3.4.1
 #RUN autoreconf -i
 ##RUN ./configure --enable-static --enable-shared=no
@@ -57,16 +57,16 @@ WORKDIR /root/src
 #RUN make install
 
 ###  iipsrv
-#WORKDIR /root/src/iipsrv
+#WORKDIR /src/iipsrv
 #RUN ./autogen.sh
 ##RUN ./configure --enable-static --enable-shared=no
 #RUN ./configure
 #RUN make
 ## create a directory for iipsrv's fcgi binary
 #RUN mkdir -p /var/www/localhost/fcgi-bin/
-#RUN cp /root/src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
+#RUN cp /src/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
 
-#COPY apache2-iipsrv-fcgid.conf /root/src/iip-openslide-docker/apache2-iipsrv-fcgid.conf
+#COPY apache2-iipsrv-fcgid.conf /src/iip-openslide-docker/apache2-iipsrv-fcgid.conf
 
 #RUN chgrp -R 0 /root && \
 #    chmod -R g+rwX /root
