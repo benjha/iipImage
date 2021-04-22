@@ -9,7 +9,7 @@ COPY fcgid.conf /etc/apache2/mods-enabled/fcgid.conf
 ENV SOURCE=/code
 RUN mkdir ${SOURCE}
 COPY . ${SOURCE}
-COPY ${SOURCE}/images/*.svs /images
+COPY /images /images
 WORKDIR ${SOURCE}
 
 # openjpeg version in ubuntu 14.04 is 1.3, too old and does not have openslide required chroma subsampled images support.  
