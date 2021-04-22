@@ -43,4 +43,7 @@ WORKDIR ${SOURCE}/iipsrv
 RUN ./autogen.sh
 RUN ./configure
 RUN make
+
+WORKDIR /
+RUN mkdir fcgid-bin
 RUN cp ${SOURCE}/iipsrv/src/iipsrv.fcgi /fcgid-bin/iipsrv.fcgi
