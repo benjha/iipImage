@@ -46,4 +46,4 @@ RUN make
 ## create a directory for iipsrv's fcgi binary
 WORKDIR /
 RUN mkdir -p iipsrv
-RUN cp ${SOURCE}/iipsrv/src/iipsrv.fcgi /iipsrv/iipsrv.fcgi
+RUN cp ${SOURCE}/iipsrv/src/iipsrv.fcgi /var/www/localhost/fcgi-bin/
