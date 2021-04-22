@@ -9,6 +9,7 @@ COPY fcgid.conf /etc/apache2/mods-enabled/fcgid.conf
 ENV SOURCE=/code
 RUN mkdir ${SOURCE}
 COPY . ${SOURCE}
+RUN mkdir images
 COPY /images /images
 WORKDIR ${SOURCE}
 
@@ -42,4 +43,4 @@ WORKDIR ${SOURCE}/iipsrv
 RUN ./autogen.sh
 RUN ./configure
 RUN make
-RUN cp ${SOURCE}/iipsrv/src/iipsrv.fcgi /fcgi-bin
+RUN cp ${SOURCE}/iipsrv/src/iipsrv.fcgi /fcgid-bin
